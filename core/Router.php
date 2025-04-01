@@ -39,7 +39,11 @@ class Router {
 			// TODO: change this construction to array of avaibles languages
 			if ($lang != 'en' && $lang != 'ua') {
 				$url = $lang . $url;
-				$lang = $default_lang;
+				if (!isset($_SESSION['lang'])) {
+					$lang = $default_lang;
+				} else {
+					$lang = $_SESSION['lang'];
+				}
 			}
 
 			// Проверяем, является ли первый символ "/"
@@ -48,10 +52,17 @@ class Router {
 				$url = substr($url, 1);
 			}
 		} else {
-			$lang = $default_lang;
+			if (!isset($_SESSION['lang'])) {
+				$lang = $default_lang;
+			} else {
+				$lang = $_SESSION['lang'];
+			}
 		}
-
+		
 		$_SESSION['lang'] = $lang;
+
+		// Load lang file
+		\core\Lang::load($lang);
 
 		foreach ($this->routes as $route => $params) {
 			if (preg_match($route, $url)) {

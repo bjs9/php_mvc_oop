@@ -2,6 +2,8 @@
 
 namespace core;
 
+use core\Lang;
+
 class View {
 
 	public $route;
@@ -22,12 +24,11 @@ class View {
 		if ($vars) {
 			extract($vars);
 		}
-		if (file_exists('app/views/' . $_SESSION['lang'] . '/' . $this->path)) {
+		if (file_exists('app/views/' . $this->path)) {
 			ob_start();
-			require 'app/views/' . $_SESSION['lang'] . '/' . $this->path;
+			require 'app/views/' . $this->path;
 			$content = ob_get_clean();
-			require 'app/views/'  . $_SESSION['lang'] . '/' .  'layouts/' . $this->layout . '.php';
-			$_SESSION['last_uri'] = $_SERVER['REQUEST_URI'];
+			require 'app/views/layouts/' . $this->layout . '.php';
 		} else {
 			$this->error(404, "Oops, The Page you are looking for can't be found!", $this->path);
 		}
@@ -39,22 +40,22 @@ class View {
 	}
 
 	public static function error($code, $why_type = false, $why = false) {
-		echo $code . "<br>";
 		if ($why_type && $why) {
 			echo ' ' . $why_type . ': ' . $why;
 		}
-		$title = "Ошибка: " . $code;
+
+		$title = "Error: " . $code;
+
 		if ($code == 404) {
 			$msg = "Oops, The Page you are looking for can't be found!";
 		} else {
 			$msg = "Some error";
 		}
+
 		ob_start();
-		require 'app/views/'  . $_SESSION['lang'] . '/' .  'error.php';
+		require 'app/views/error.php';
 		$content = ob_get_clean();
-		echo('404! <a href="/">Return to -> HomePage</a>');
-		require 'app/views/'  . $_SESSION['lang'] . '/' .  'layouts/default.php';
-		$_SESSION['last_uri'] = $_SERVER['REQUEST_URI'];
+		require 'app/views/layouts/default.php';
 	}
 
 }
