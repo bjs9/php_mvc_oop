@@ -4,13 +4,13 @@ return [
 	'' => [
 		'controller' => 'main',
 		'action'     => 'index',
-		'title'      => ''
+		'title'      => 'Index Page'
 	],
 
 	'test' => [
 		'controller' => 'main',
 		'action'     => 'test',
-		'title'      => ''
+		'title'      => 'Test Page'
 	]
 ];
 

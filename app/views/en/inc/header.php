@@ -6,6 +6,6 @@
 
         <link rel="stylesheet" href="/public/css/style.css">
 
-        <title>Index</title>
+        <title><?= $title ?></title>
     </head>
     <body>
