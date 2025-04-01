@@ -35,12 +35,13 @@ class Router {
 			$url = substr($url, 2);
 
 			if (in_array($lang, config('available_langs'))) {
-				$url = $lang . $url;
 				if (!isset($_SESSION['lang'])) {
 					$lang = $default_lang;
 				} else {
 					$lang = $_SESSION['lang'];
 				}
+			} else {
+				$url = $lang . $url;
 			}
 
 			// Проверяем, является ли первый символ "/"
