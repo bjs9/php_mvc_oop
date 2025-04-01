@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use app\core\Model;
+use core\Model;
 
 class Admin extends Model {
 

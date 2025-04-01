@@ -1,0 +1,13 @@
+{
+    "name": "bjs9/php-mvc-opp",
+    "description": "Mini PHP framework",
+    "type": "project",
+    "license": "MIT",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "core\\": "core/",
+            "app\\": "app/"
+        }
+    }
+}

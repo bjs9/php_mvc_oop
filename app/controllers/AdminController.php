@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use app\core\Controller;
+use core\Controller;
 
 class AdminController extends Controller {
 
