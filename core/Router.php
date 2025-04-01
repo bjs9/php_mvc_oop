@@ -27,17 +27,14 @@ class Router {
 		$url = trim($_SERVER['REQUEST_URI'], '/');
 		$url = explode('?', $url);
 		$url = $url[0];
-		// debug($url); // - our URL
 
-		// TODO: to config
-		$default_lang = 'en';
+		$default_lang = config('default_lang');
 
 		if ($url) {
 			$lang = substr($url, 0, 2);
 			$url = substr($url, 2);
 
-			// TODO: change this construction to array of avaibles languages
-			if ($lang != 'en' && $lang != 'ua') {
+			if (in_array($lang, config('available_langs'))) {
 				$url = $lang . $url;
 				if (!isset($_SESSION['lang'])) {
 					$lang = $default_lang;
