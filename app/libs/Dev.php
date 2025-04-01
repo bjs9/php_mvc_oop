@@ -18,3 +18,4 @@ if (getConf('DEBUG')) {
 } else {
     ini_set("display_errors", 0);
 }
+

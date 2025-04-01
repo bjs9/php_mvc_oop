@@ -7,7 +7,7 @@ class Lang {
     protected static $phrases = [];
 
     // load lang file
-    public static function load(string $langCode) {
+    public static function load(string $langCode): void {
         $file = __DIR__ . "/../lang/{$langCode}.php";
 
         if (file_exists($file)) {
