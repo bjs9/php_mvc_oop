@@ -9,17 +9,22 @@ class DB {
 	protected $db;
 
 	public function __construct() {
-		$config = require 'app/config/db.php';
+		$config  = config('db');
+		$options = [];
+		$dsn     = "mysql:host={$config['host']};dbname={$config['name']};charset=utf8";
 
-		if (getConf('DEBUG')) {
-			$this->db = new PDO('mysql:host=' . $config['host'] . ';dbname=' . $config['name'], $config['user'], $config['pass'], [
-				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // Активируем ошибки
-			]);
-		} else {
-			$this->db = new PDO('mysql:host=' . $config['host'] . ';dbname=' . $config['name'], $config['user'], $config['pass']);
+		if (config('debug')) {
+			$options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
 		}
-		
-		$this->db->exec("set names utf8");
+
+		try {
+			$this->db = new PDO($dsn, $config['user'], $config['pass'], $options);
+		} catch (\PDOException $e) {
+			if (config('debug')) {
+				die('Database error: ' . $e->getMessage());
+			}
+			die('Database error');
+		}
 	}
 
 	public function query($sql, $params = []) {
