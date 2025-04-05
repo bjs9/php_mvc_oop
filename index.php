@@ -6,8 +6,7 @@ require __DIR__ . '/core/helpers.php';
 use core\Router;
 
 \core\Config::load();
-
-session_start();
+\core\Session::start();
 
 if (config('debug')) {
     ini_set('display_errors', '1');
