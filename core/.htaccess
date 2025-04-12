@@ -1,0 +1,9 @@
+# deny all access via direct URL
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^.*$ - [F,L]
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+  Deny from all
+</IfModule>
