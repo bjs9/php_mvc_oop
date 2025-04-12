@@ -10,12 +10,12 @@ class Session {
         }
     }
 
-    public static function set(string $key, mixed $value): void {
+    public static function set(string $key, $value): void {
         self::start();
         $_SESSION[$key] = $value;
     }
 
-    public static function get(string $key, mixed $default = null): mixed {
+    public static function get(string $key, $default = null) {
         self::start();
         return $_SESSION[$key] ?? $default;
     }

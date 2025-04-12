@@ -27,12 +27,12 @@ function session_has(string $key): bool {
 }
 
 // Set session var
-function session_set(string $key, mixed $value): void {
+function session_set(string $key, $value): void {
     Session::set($key, $value);
 }
 
 // Get session var
-function session_get(string $key, mixed $default = null): mixed {
+function session_get(string $key, $default = null) {
     return Session::get($key, $default);
 }
 

@@ -23,6 +23,10 @@ class Router {
 	}
 
 	public function match() {
+		if ($_SERVER['REQUEST_URI'] === '/favicon.ico') {
+			http_response_code(204); // Пустой ответ
+			exit;
+		}
 		// code for $_GET
 		$url = trim($_SERVER['REQUEST_URI'], '/');
 		$url = explode('?', $url);
@@ -30,37 +34,30 @@ class Router {
 
 		$default_lang = config('default_lang');
 
-		if ($url) {
-			$lang = substr($url, 0, 2);
-			$url = substr($url, 2);
-
-			if (in_array($lang, config('available_langs'))) {
-				if (!isset($_SESSION['lang'])) {
-					$lang = $default_lang;
-				} else {
-					$lang = $_SESSION['lang'];
-				}
+		if (strlen($url) !== 0) {
+			$lang = explode('/', $url)[0];
+			
+			if (strlen($lang) === 2 && in_array($lang, config('available_langs'))) {
+				$url = substr($url, 2);
+				session_set('lang', $lang);
 			} else {
-				$url = $lang . $url;
-			}
-
-			// Проверяем, является ли первый символ "/"
-			if (isset($url[0]) && $url[0] === '/') {
-				// Удаляем первый символ "/"
-				$url = substr($url, 1);
+				session_set('lang', $default_lang);
 			}
 		} else {
-			if (!isset($_SESSION['lang'])) {
-				$lang = $default_lang;
+			if (!session_get('lang')) {
+				session_set('lang', $default_lang);
 			} else {
-				$lang = $_SESSION['lang'];
+				$lang = session_get('lang');
 			}
 		}
-		
-		$_SESSION['lang'] = $lang;
+
+
+		if (isset($url[0]) && $url[0] === '/') {
+			$url = substr($url, 1);
+		}
 
 		// Load lang file
-		\core\Lang::load($lang);
+		\core\Lang::load(session_get('lang'));
 
 		foreach ($this->routes as $route => $params) {
 			if (preg_match($route, $url)) {
