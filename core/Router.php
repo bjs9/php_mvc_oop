@@ -23,10 +23,6 @@ class Router {
 	}
 
 	public function match() {
-		if ($_SERVER['REQUEST_URI'] === '/favicon.ico') {
-			http_response_code(204); // Пустой ответ
-			exit;
-		}
 		// code for $_GET
 		$url = trim($_SERVER['REQUEST_URI'], '/');
 		$url = explode('?', $url);
