@@ -14,12 +14,14 @@ $debug = in_array($_SERVER['HTTP_HOST'], [
 ]);
 
 return [
-    'default_lang' => 'en',
-    'debug'        => $debug,
+    'default_lang'    => 'en',
+    'available_langs' => [],
+    'debug'           => $debug,
+    'migration_key'   => 'a_b_cSecret2025', /* /migration-start?key=a_b_cSecret2025 */
 
     'db' => $debug ? [
         'host' => 'localhost',
-        'name' => 'example',
+        'name' => 'phpmvcoop',
         'user' => 'root',
         'pass' => '',
     ] : [
@@ -29,5 +31,4 @@ return [
         'pass' => 'prod',
     ],
 
-    'available_langs' => [],
 ];
